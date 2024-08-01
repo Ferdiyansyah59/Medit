@@ -32,6 +32,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at'
     ];
 
     /**
@@ -44,8 +45,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function portofolio(){
-        return $this->hasMany(Portofolio::class);
+    // public function portofolio(){
+    //     return $this->hasMany(Portofolio::class);
+    // }
+
+    public function portoMember()
+    {
+        return $this->belongsToMany(PortoMember::class, 'porto_members');
     }
     public function transaction(){
         return $this->hasMany(Transaction::class);

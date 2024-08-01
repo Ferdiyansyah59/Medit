@@ -10,15 +10,25 @@ class Portofolio extends Model
     use HasFactory;
 
     protected $guarded = ["id"];
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
 
-    public function portotrans(){
-        return $this->hasMany(Portotrans::class);
+    protected $hidden = [
+        'password', 
+        'email_verified_at', 
+        'remember_token'
+    ];
+
+
+    public function portoMembers()
+    {
+        return $this->hasMany(PortoMember::class);
     }
 
     public function transaksi_porto(){
-        return $this->hasMany(Portotrans::class, 'porto_id');
+        return $this->hasMany(Portotrans::class, 'portomember_id');
     }
+
+    // public function transaksi_porto()
+    // {
+    //     return $this->hasManyThrough(Portotrans::class, PortoMember::class, 'portofolio_id', 'portomember_id');
+    // }
 }

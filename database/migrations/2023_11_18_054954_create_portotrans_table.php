@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('portotrans', function (Blueprint $table) {
             $table->id();
             $table->integer("nominal");
-            $table->foreignId("porto_id");
+            $table->foreignId("portomember_id");
+            $table->foreignId("user_id")->constrained('users');
             $table->string("keterangan");
             $table->enum('status', ['pemasukan', 'pengeluaran']);
+            $table->string('foto');
             // $table->foreignId("user_id");
             $table->timestamps();
         });

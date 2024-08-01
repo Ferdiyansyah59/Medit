@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PortofolioController;
+use App\Http\Controllers\PortoMemberController;
 use App\Http\Controllers\PortotransController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
@@ -68,7 +69,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/portofolio', [PortofolioController::class, 'index']);
     
     // detail portofolio
-    Route::get('/portofolio/{id}', [PortofolioController::class, 'detail']);
+    // Route::get('/portofolio/{id}', [PortofolioController::class, 'detail']);
 
     // insert data portofolio
     Route::post('/portofolio', [PortofolioController::class, 'store']);
@@ -79,12 +80,32 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     // Insert data transaksi portofolio
     Route::post('/portofolio-transaction', [PortotransController::class, 'store']);
 
+    //list member
+    Route::get('/listmember/{id}', [PortoMemberController::class, 'listMember']);
+
+    //delete porto
+    Route::delete('/portofolio/{id}', [PortofolioController::class, 'delete']);
+    Route::delete('/portofolio/{portofolio_id}/member/{member_id}', [PortoMemberController::class, 'deleteMember']);
+    Route::delete('/portotrans/{portotrans_id}', [PortotransController::class, 'deletePortotrans']);
+    Route::delete('/transaction/{id}', [TransactionController::class, 'deleteTransaction']);
 
 
     // Total Target Portofolio
     Route::get('/total-target', [PortofolioController::class, 'TotalTarget']);
     // Total terkumpul portofolio
     Route::get('/total-terkumpul', [PortofolioController::class, 'TotalTerkumpul']);
+
+
+    // Route::post('/portofolio/{portfolio_id}/invite', [PortofolioController::class, 'inviteUser']);
+    // Route::get('/portofolio/{portfolio_id}/members', [PortofolioController::class, 'getMembers']);
+
+
+    // Inviate member
+    Route::post('/portofolio-invite', [PortoMemberController::class, 'InviteMember']);
+    // Mengambil detail portofolio (kl klik salh satu portofolio)
+    Route::get('/portofolio/{id}', [PortofolioController::class, 'getPortoDetail']);
+    Route::post('/portofolio/{id}', [PortofolioController::class, 'update']);
+
 
     // Logout
     Route::get('/logout', [AuthController::class, 'logout']);
